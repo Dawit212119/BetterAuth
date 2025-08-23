@@ -5,7 +5,7 @@ import { hashPassword, verifyPassword } from "./argon2";
 import { nextCookies } from "better-auth/next-js";
 import { createAuthMiddleware, APIError } from "better-auth/api";
 import { normalizeName, VALID_DOMAINS } from "./utils";
-import { admin } from "better-auth/plugins";
+import { admin, magicLink } from "better-auth/plugins";
 import { UserRole } from "@/generated/prisma";
 import { ac, roles } from "./permission";
 import SendEmailAction from "@/app/actions/send-Email.action";
@@ -121,6 +121,18 @@ export const auth = betterAuth({
       adminRoles: UserRole.Admin,
       ac,
       roles,
+    }),
+    magicLink({
+      sendMagicLink: async ({ email, url }) => {
+        await SendEmailAction({
+          to: email,
+          subject: "Magic Link Login",
+          meta: {
+            description: "Please click the link below to log in.",
+            link: url,
+          },
+        });
+      },
     }),
   ],
   advanced: {

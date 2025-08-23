@@ -1,4 +1,5 @@
 "use client";
+import { MagicLinkLoginForm } from "@/components/magic-link-login-form";
 import SocialLoginButton from "@/components/socialLoginButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,7 +62,7 @@ const Register = () => {
   return (
     <div className=" max-w-screen flex flex-col mt-15 p-20 space-y-8 ">
       <h1 className="text-2xl font-bold">Register Form</h1>
-
+      <MagicLinkLoginForm />
       <form onSubmit={handleSubmit} className="space-y-8 ">
         <div className="grid w-full max-w-sm items-center gap-3">
           <Label htmlFor="name">name</Label>
